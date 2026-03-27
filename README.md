@@ -87,7 +87,7 @@ Run:
 
 ansible-playbook -i ansible/inventory ansible/deploy.yml
 
-This starts (or recreates) the feedback container and maps port 5000.
+This builds the Docker image locally, then starts (or recreates) the feedback container and maps port 5000.
 
 If Ansible is installed in WSL, run from Ubuntu terminal in the project folder.
 

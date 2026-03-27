@@ -15,6 +15,13 @@
         state: directory
         mode: "0755"
 
+    - name: Build feedback application image locally
+      community.docker.docker_image:
+        name: "{{ image_name }}"
+        source: build
+        build:
+          path: "{{ playbook_dir }}/.."
+
     - name: Remove existing container if present
       community.docker.docker_container:
         name: "{{ container_name }}"
@@ -27,6 +34,7 @@
         state: started
         recreate: true
         pull: false
+        source: local
         ports:
           - "{{ host_port }}:{{ container_port }}"
         volumes:
