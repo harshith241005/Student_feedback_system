@@ -102,6 +102,7 @@ The Jenkinsfile contains these stages:
 2. Build Docker Image
 3. Run Tests
 4. Deploy with Ansible
+5. Smoke Test (checks http://localhost:5000)
 
 To use in Jenkins:
 1. Create a Pipeline job.

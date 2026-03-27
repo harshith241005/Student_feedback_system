@@ -50,6 +50,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Smoke Test') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'curl -fsS http://localhost:${HOST_PORT} > /dev/null'
+                    } else {
+                        bat 'powershell -ExecutionPolicy Bypass -Command "$resp = Invoke-WebRequest -Uri http://localhost:%HOST_PORT% -UseBasicParsing; if ($resp.StatusCode -ne 200) { throw \"Smoke test failed with status $($resp.StatusCode)\" }"'
+                    }
+                }
+            }
+        }
     }
 
     post {
