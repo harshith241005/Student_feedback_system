@@ -45,7 +45,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'ansible-playbook -i ansible/inventory ansible/deploy.yml --extra-vars "image_name=${IMAGE_NAME}:latest container_name=${CONTAINER_NAME} host_port=${HOST_PORT} container_port=${CONTAINER_PORT}"'
                     } else {
-                        bat 'ansible-playbook -i ansible/inventory ansible/deploy.yml --extra-vars "image_name=%IMAGE_NAME%:latest container_name=%CONTAINER_NAME% host_port=%HOST_PORT% container_port=%CONTAINER_PORT%"'
+                        bat 'powershell -ExecutionPolicy Bypass -File scripts/deploy_ansible.ps1 -ImageName "%IMAGE_NAME%:latest" -ContainerName "%CONTAINER_NAME%" -HostPort "%HOST_PORT%" -ContainerPort "%CONTAINER_PORT%"'
                     }
                 }
             }

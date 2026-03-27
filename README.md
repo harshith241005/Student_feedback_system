@@ -91,6 +91,10 @@ This starts (or recreates) the feedback container and maps port 5000.
 
 If Ansible is installed in WSL, run from Ubuntu terminal in the project folder.
 
+Windows fallback command (uses host Ansible if available, else containerized Ansible):
+
+powershell -ExecutionPolicy Bypass -File ./scripts/deploy_ansible.ps1
+
 ## 6. Jenkins Pipeline
 
 The Jenkinsfile contains these stages:
@@ -107,7 +111,7 @@ To use in Jenkins:
 
 Note:
 - Jenkinsfile supports both Linux and Windows agents.
-- Ensure ansible-playbook is available on the Jenkins agent PATH.
+- On Windows agents, Jenkins runs scripts/deploy_ansible.ps1, which falls back to containerized Ansible when ansible-playbook is not on PATH.
 
 ## 7. Functional Flow
 
