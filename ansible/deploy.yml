@@ -34,7 +34,6 @@
         state: started
         recreate: true
         pull: false
-        source: local
         ports:
           - "{{ host_port }}:{{ container_port }}"
         volumes:
