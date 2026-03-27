@@ -3,7 +3,10 @@ from pathlib import Path
 
 from flask import Flask, redirect, render_template, request, url_for
 
-from app.database import add_feedback, init_db, list_feedback
+try:
+    from app.database import add_feedback, init_db, list_feedback
+except ModuleNotFoundError:
+    from database import add_feedback, init_db, list_feedback
 
 
 def create_app(db_path: str | None = None) -> Flask:
