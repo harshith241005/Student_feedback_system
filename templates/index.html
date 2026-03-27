@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <section class="card">
+            <h1>Student Feedback Portal</h1>
+            <p class="subtitle">Share your feedback about courses and labs.</p>
+
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <form action="{{ url_for('submit_feedback') }}" method="POST" class="feedback-form">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Enter your name" required>
+
+                <label for="message">Feedback</label>
+                <textarea id="message" name="message" rows="4" placeholder="Write your feedback" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <a class="view-all" href="{{ url_for('feedback') }}">View all feedback</a>
+        </section>
+
+        <section class="card">
+            <h2>Recent Feedback</h2>
+            {% if feedback_entries %}
+            <ul class="feedback-list">
+                {% for item in feedback_entries %}
+                <li>
+                    <strong>{{ item['student_name'] }}</strong>
+                    <p>{{ item['message'] }}</p>
+                    <small>{{ item['created_at'] }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty">No feedback submitted yet.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

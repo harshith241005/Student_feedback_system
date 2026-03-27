@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container single-column">
+        <section class="card">
+            <h1>All Submitted Feedback</h1>
+            <a class="view-all" href="{{ url_for('index') }}">Back to submission page</a>
+            {% if feedback_entries %}
+            <ul class="feedback-list">
+                {% for item in feedback_entries %}
+                <li>
+                    <strong>{{ item['student_name'] }}</strong>
+                    <p>{{ item['message'] }}</p>
+                    <small>{{ item['created_at'] }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty">No feedback found.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

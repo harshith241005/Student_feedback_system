@@ -1,0 +1,33 @@
+---
+- name: Deploy student feedback container
+  hosts: local
+  become: false
+  vars:
+    image_name: "student-feedback-app:latest"
+    container_name: "student-feedback-app"
+    host_port: "5000"
+    container_port: "5000"
+
+  tasks:
+    - name: Ensure data directory exists
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/../data"
+        state: directory
+        mode: "0755"
+
+    - name: Remove existing container if present
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        state: absent
+
+    - name: Run latest feedback application container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        state: started
+        recreate: true
+        pull: false
+        ports:
+          - "{{ host_port }}:{{ container_port }}"
+        volumes:
+          - "{{ playbook_dir }}/../data:/app/data"
