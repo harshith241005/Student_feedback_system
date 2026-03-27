@@ -31,9 +31,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER} pytest -q tests'
+                        sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER} python -m pytest -q tests'
                     } else {
-                        bat 'docker run --rm %IMAGE_NAME%:%BUILD_NUMBER% pytest -q tests'
+                        bat 'docker run --rm %IMAGE_NAME%:%BUILD_NUMBER% python -m pytest -q tests'
                     }
                 }
             }
